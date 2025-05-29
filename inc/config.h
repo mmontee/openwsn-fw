@@ -17,7 +17,7 @@
  *
  */
 #ifndef OPENWSN_DEBUG_LEVEL
-#define OPENWSN_DEBUG_LEVEL         6
+#define OPENWSN_DEBUG_LEVEL        0
 #endif
 
 // ========================== Applications ==========================

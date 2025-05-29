@@ -42,12 +42,12 @@ void board_init(void) {
     while (NRF_CLOCK->EVENTS_HFCLKSTARTED == 0);
 
     leds_init();
-    debugpins_init();
+    //debugpins_init();
     uart_init();
     sctimer_init();
     radio_init();
 
-    i2c_init();
+    //i2c_init();
 
     // configure dcdc
     enable_dcdc();
