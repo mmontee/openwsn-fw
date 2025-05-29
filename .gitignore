@@ -24,3 +24,4 @@ settings
 /projects/telosb/01bsp_uart/path.txt
 /projects/telosb/03oos_macpong/path.txt
 /projects/telosb/02drv_opentimers/path.txt
+/projects/nrf52840_dk/03oos_openwsn_Debug.jlink
