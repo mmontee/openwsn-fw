@@ -28,12 +28,13 @@
 #include "icmpv6echo.h"
 #include "msf.h"
 #include "debugpins.h"
+#include "databus.h"
 
 //=========================== variables =======================================
 
 openserial_vars_t openserial_vars;
 
-#define STATUSPRINT_PERIOD 100 // in ms
+#define STATUSPRINT_PERIOD 10000 // in ms
 
 //=========================== prototypes ======================================
 
@@ -112,6 +113,8 @@ void openserial_init(void) {
     // UART
     uart_setCallbacks(isr_openserial_tx, isr_openserial_rx);
     uart_enableInterrupts();
+
+    databus_init(BUFFER_SIZE, SERIAL);
 }
 
 //===== transmitting
@@ -605,11 +608,29 @@ void openserial_handleRxFrame() {
         case SERFRAME_PC2MOTE_RESET:
             board_reset();
             break;
-        case SERFRAME_PC2MOTE_DATA:
-            openbridge_triggerData();
+         case SERFRAME_PC2MOTE_DATA:
+            //openbridge_triggerData();
+            if(DAGROOT)
+            {
+
+            }
+            else
+            {
+              databus_write(SERIAL, openserial_vars.inputBuf, 3);
+
+              openserial_vars.inputBufFillLevel = 0;
+            }
+            
             break;
         case SERFRAME_PC2MOTE_TRIGGERSERIALECHO:
-            openserial_handleEcho(&openserial_vars.inputBuf[1], openserial_vars.inputBufFillLevel - 1);
+            if(DAGROOT)
+            {
+
+            }
+            else
+            {
+              openserial_handleEcho(&openserial_vars.inputBuf[1], openserial_vars.inputBufFillLevel - 1);
+            }
             break;
     }
 }
@@ -750,7 +771,7 @@ port_INLINE void inputHdlcClose(void) {
         // the CRC is incorrect
 
         // drop the incoming frame
-        openserial_vars.inputBufFillLevel = 0;
+        //openserial_vars.inputBufFillLevel = 0; // I'm not add CRC for now
     }
 }
 

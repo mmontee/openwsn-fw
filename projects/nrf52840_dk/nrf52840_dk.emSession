@@ -1,0 +1,55 @@
+<!DOCTYPE CrossStudio_Session_File>
+<session>
+ <Bookmarks/>
+ <Breakpoints groups="Breakpoints" active_group="Breakpoints"/>
+ <ExecutionProfileWindow/>
+ <FrameBufferWindow>
+  <FrameBufferWindow bufferHeight="-1" addressSpace="" addressText="" bufferWidth="-1"/>
+ </FrameBufferWindow>
+ <Memory1/>
+ <Memory2/>
+ <Memory3/>
+ <Memory4/>
+ <Project>
+  <ProjectSessionItem path="nrf52840-dk"/>
+  <ProjectSessionItem path="nrf52840-dk;01bsp_debugpins"/>
+  <ProjectSessionItem path="nrf52840-dk;01bsp_debugpins;application"/>
+  <ProjectSessionItem path="nrf52840-dk;03oos_openwsn"/>
+  <ProjectSessionItem path="nrf52840-dk;03oos_openwsn;bsp"/>
+  <ProjectSessionItem path="nrf52840-dk;03oos_openwsn;drivers"/>
+  <ProjectSessionItem path="nrf52840-dk;03oos_openwsn;inc"/>
+  <ProjectSessionItem path="nrf52840-dk;03oos_openwsn;openapps"/>
+  <ProjectSessionItem path="nrf52840-dk;03oos_openwsn;openapps;uinject"/>
+ </Project>
+ <Register1/>
+ <Register2/>
+ <Register3/>
+ <Register4/>
+ <Threads>
+  <ThreadsWindow showLists=""/>
+ </Threads>
+ <TraceWindow>
+  <Trace enabled="Yes"/>
+ </TraceWindow>
+ <Watch1>
+  <Watches active="1" update="Never"/>
+ </Watch1>
+ <Watch2>
+  <Watches active="0" update="Never"/>
+ </Watch2>
+ <Watch3>
+  <Watches active="0" update="Never"/>
+ </Watch3>
+ <Watch4>
+  <Watches active="0" update="Never"/>
+ </Watch4>
+ <Files>
+  <SessionOpenFile windowGroup="DockEditLeft" x="33" y="65" useTextEdit="1" path="../../openstack/cross-layers/openqueue.c" left="0" top="43" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="21" useTextEdit="1" path="../../inc/config.h" left="0" top="9" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="17" y="49" useTextEdit="1" path="../../bsp/boards/nrf52840_dk/board.c" left="0" top="33" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../openapps/uinject/uinject.c" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="16" y="615" useTextEdit="1" path="../../drivers/common/openserial.c" left="0" top="602" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="45" y="82" useTextEdit="1" path="../../bsp/boards/nrf52840_dk/adc.c" left="0" selected="1" top="60" codecName="Default"/>
+ </Files>
+ <EMStudioWindow activeProject="03oos_openwsn" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="3711"/>
+</session>

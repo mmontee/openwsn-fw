@@ -14,12 +14,14 @@
 #include "icmpv6rpl.h"
 #include "idmanager.h"
 #include "openrandom.h"
-
+#include "databus.h"
 #include "msf.h"
 
+
+#include "uart.h"
 //=========================== defines =========================================
 
-#define UINJECT_TRAFFIC_RATE 1 ///> the value X indicates 1 packet/X minutes
+#define UINJECT_TRAFFIC_RATE 1`y ///> the value X indicates 1 packet/X minutes
 
 //=========================== variables =======================================
 
@@ -113,9 +115,9 @@ void uinject_sock_handler(sock_udp_t *sock, sock_async_flags_t type, void *arg) 
 void _uinject_timer_cb(opentimers_id_t id) {
     // calling the task directly as the timer_cb function is executed in
     // task mode by opentimer already
-    if (openrandom_get16b() < (0xffff / UINJECT_TRAFFIC_RATE)) {
+   // if (openrandom_get16b() < (0xffff / UINJECT_TRAFFIC_RATE)) {
         _uinject_task_cb();
-    }
+    ///}
 }
 
 void _uinject_task_cb(void) {
@@ -160,8 +162,22 @@ void _uinject_task_cb(void) {
     memcpy(&payload[len], uinject_payload, sizeof(uinject_payload) - 1);
     len += sizeof(uinject_payload) - 1;
     // add counter
-    payload[len++] = (uint8_t)(uinject_vars.counter & 0x00ff);
-    payload[len++] = (uint8_t)((uinject_vars.counter & 0xff00) >> 8);
+    uint8_t temp_buff[BUFFER_SIZE];
+    uint8_t num_of_bytes = databus_read(SERIAL, temp_buff, 3);
+    if(num_of_bytes > 1)
+    {
+      payload[len++] = temp_buff[0];
+      payload[len++] = temp_buff[1];
+      payload[len++] = temp_buff[2];
+      uart_writeByte('P');
+    }
+    else
+    {
+      uart_writeByte('F');
+      return;
+    }
+    //payload[len++] = (uint8_t)(uinject_vars.counter & 0x00ff);
+    //payload[len++] = (uint8_t)((uinject_vars.counter & 0xff00) >> 8);
     uinject_vars.counter++;
     // add asn
     ieee154e_getAsn(asnArray);
