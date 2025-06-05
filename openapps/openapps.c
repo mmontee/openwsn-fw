@@ -52,6 +52,10 @@
 #include "cjoin.h"
 #endif
 
+#if OPENWSN_ADCREAD_C
+#include "adc/adcread.h"
+#endif
+
 //=========================== variables =======================================
 
 //=========================== prototypes ======================================
@@ -104,5 +108,11 @@ void openapps_init(void) {
 #if OPENWSN_UEXP_MONITOR_C
     umonitor_init();
 #endif
+
+#if OPENWSN_ADCREAD_C
+    adcread_init();
+#endif
+
+
 
 }

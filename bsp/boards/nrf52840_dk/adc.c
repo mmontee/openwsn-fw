@@ -2,6 +2,8 @@
 #include "nrf.h" // Assuming this provides NRF_SAADC base pointer and register definitions
 #include <stddef.h> 
 
+#include "uart.h"
+
 //=========================== defines =========================================
 
 // Use channel 0 for simplicity in this basic driver
@@ -10,7 +12,7 @@
 //=========================== variables =======================================
 
 static bool adc_initialized = false;
-static int16_t adc_result_buffer; // Single buffer for the result
+static uint16_t adc_result_buffer; // Single buffer for the result
 
 //=========================== private functions ===============================
 
@@ -103,7 +105,7 @@ void adc_init(const adc_config_t* config) {
     adc_initialized = true;
 }
 
-bool adc_sample(int16_t* result) {
+bool adc_sample(uint16_t* result) {
     if (!adc_initialized || result == NULL) {
         return false; // Not initialized or result pointer invalid
     }

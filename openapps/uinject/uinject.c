@@ -16,12 +16,13 @@
 #include "openrandom.h"
 #include "databus.h"
 #include "msf.h"
+#include "adc/adcread.h"
 
 
 #include "uart.h"
 //=========================== defines =========================================
 
-#define UINJECT_TRAFFIC_RATE 1`y ///> the value X indicates 1 packet/X minutes
+#define UINJECT_TRAFFIC_RATE 10 ///> the value X indicates 1 packet/X minutes
 
 //=========================== variables =======================================
 
@@ -161,12 +162,17 @@ void _uinject_task_cb(void) {
     // add 'uinject' string
     memcpy(&payload[len], uinject_payload, sizeof(uinject_payload) - 1);
     len += sizeof(uinject_payload) - 1;
-    // add counter
+
+    uint16_t reading = adcread_get_value();
+    payload[len++] = (uint8_t)(reading & 0x00ff);
+    payload[len++] = (uint8_t)((reading & 0xff00) >> 8);
+
+    /*
     uint8_t temp_buff[BUFFER_SIZE];
     uint8_t num_of_bytes = databus_read(SERIAL, temp_buff, 3);
     if(num_of_bytes > 1)
     {
-      payload[len++] = temp_buff[0];
+      //payload[len++] = temp_buff[0];
       payload[len++] = temp_buff[1];
       payload[len++] = temp_buff[2];
       uart_writeByte('P');
@@ -176,17 +182,16 @@ void _uinject_task_cb(void) {
       uart_writeByte('F');
       return;
     }
-    //payload[len++] = (uint8_t)(uinject_vars.counter & 0x00ff);
-    //payload[len++] = (uint8_t)((uinject_vars.counter & 0xff00) >> 8);
-    uinject_vars.counter++;
+    */
+
     // add asn
     ieee154e_getAsn(asnArray);
     memcpy(&payload[len], asnArray, sizeof(asnArray));
     len += sizeof(asnArray);
     // add tx cells used
-    payload[len++] = msf_getPreviousNumCellsUsed(CELLTYPE_TX);
+    //payload[len++] = msf_getPreviousNumCellsUsed(CELLTYPE_TX);
     // add rx cells used
-    payload[len++] = msf_getPreviousNumCellsUsed(CELLTYPE_RX);
+    //payload[len++] = msf_getPreviousNumCellsUsed(CELLTYPE_RX);
     // add 16b addr
     payload[len++] = (uint8_t)(idmanager_getMyID(ADDR_16B)->addr_16b[1]);
     payload[len++] = (uint8_t)(idmanager_getMyID(ADDR_16B)->addr_16b[0]);

@@ -200,6 +200,16 @@
 #define OPENWSN_CJOIN_C (0)
 #endif
 
+/**
+ * \def OPENWSN_ADCREAD_C
+ *
+ * Initilize ADC, periodically sample ADC
+ *
+ */
+#ifndef OPENWSN_ADCREAD_C
+#define OPENWSN_ADCREAD_C (1)
+#endif
+
 // ======================= OpenWeb configuration =======================
 
 /**

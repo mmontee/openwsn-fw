@@ -113,7 +113,7 @@ void adc_init(const adc_config_t* config);
  *
  * @return true if the conversion was successful, false otherwise (e.g., ADC not initialized or busy).
  */
-bool adc_sample(int16_t* result);
+bool adc_sample(uint16_t* result);
 
 /**
  * @brief Disables the SAADC peripheral.

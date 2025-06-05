@@ -188,6 +188,8 @@ enum {
    COMPONENT_UEXPIRATION               = 0x2b,
    COMPONENT_UMONITOR                  = 0x2c,
    COMPONENT_CINFRARED                 = 0x2d,
+   COMPONENT_ADCREAD                   = 0x2e,
+   COMPONENT_MAX                       = 0x2f,
 };
 
 /**
@@ -289,6 +291,8 @@ enum {
    ERR_INVALID_PARAM                   = 0x53, // received an invalid parameter
    ERR_COPY_TO_SPKT                    = 0x54, // copy packet content to small packet (pkt len {} < max len {})
    ERR_COPY_TO_BPKT                    = 0x55, // copy packet content to big packet (pkt len {} > max len {})
+   ERR_WRONG_TIMER_ID                  = 0x56,
+   ERR_ADC_READ_FAILED                 = 0x57,
 };
 
 //=========================== typedef =========================================
