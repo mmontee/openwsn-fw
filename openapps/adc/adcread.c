@@ -17,7 +17,7 @@
 
 typedef struct {
     opentimers_id_t timer_id;          // Stores the ID assigned by opentimers
-    uint16_t        latest_adc_value; // The global variable holding the latest raw ADC reading
+    uint16_t        latest_adc_value; // The variable holding the latest raw ADC reading
     adc_config_t   adc_config;       // Store the ADC configuration used
     bool           initialized;      // Flag to prevent double initialization
 } adcread_vars_t;
@@ -79,8 +79,7 @@ void adcread_init() {
         // Mark as initialized successfully
          adcread_vars.initialized = true;
          // Log initialization (optional)
-         // openserial_printf("App ADC Reader Initialized. id: %d, Period: %d ms\r\n",
-         //                   adcread_vars.timer_id, ADC_READER_PERIOD_MS);
+         databus_init(BUFFER_SIZE, ADC);
     }
 }
 
@@ -115,6 +114,12 @@ void _adcread_task_cb(void) {
     }
  // --- 4. Sample the ADC ---
     bool success = adc_sample(&adcread_vars.latest_adc_value);
+    if(success)
+    {
+      //payload[len++] = (uint8_t)(reading & 0x00ff);
+      //payload[len++] = (uint8_t)((reading & 0xff00) >> 8);
+      //databus_write(ADC, adcread_vars.latest_adc_value, 2);
+    }
     // --- 5. Handle Result (Optional) ---
     if (!success) {
         // Log an error if the ADC sample failed

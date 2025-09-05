@@ -20,8 +20,6 @@ static uint16_t adc_result_buffer; // Single buffer for the result
 //Map the logical XIAO pin enum to the nRF52 SAADC AIN input number.
 
 static uint32_t map_xiao_pin_to_ain(adc_analog_input_pin_t pin) {
-    // NRF_SAADC_INPUT_AIN0 = 1, NRF_SAADC_INPUT_AIN1 = 2, ..., NRF_SAADC_INPUT_AIN7 = 8
-    // NRF_SAADC_INPUT_DISABLED = 0
     switch (pin) {
         case ADC_PIN_A0: return SAADC_CH_PSELP_PSELP_AnalogInput0; // AIN0 -> P0.02
         case ADC_PIN_A1: return SAADC_CH_PSELP_PSELP_AnalogInput1; // AIN1 -> P0.03
@@ -54,8 +52,6 @@ void adc_init(const adc_config_t* config) {
     // MAXCNT must be 1 when oversampling is enabled or for simple blocking mode.
     NRF_SAADC->RESULT.PTR    = (uint32_t)&adc_result_buffer;
     NRF_SAADC->RESULT.MAXCNT = 1; // Store one sample
-
-    // --- Channel Configuration Using Channel 0 - this could be expanded
 
     // Disable channel first to configure safely
     NRF_SAADC->CH[ADC_CHANNEL].CONFIG = 0;
@@ -145,8 +141,6 @@ void adc_uninit(void) {
     // Stop ongoing conversions if any
     NRF_SAADC->TASKS_STOP = 1;
     // Wait for ADC to be stopped
-    // Note: Checking STATUS register is more robust than waiting for EVENTS_STOPPED
-    // as EVENTS_STOPPED is only generated if ADC was started.
     while (NRF_SAADC->STATUS == (SAADC_STATUS_STATUS_Busy << SAADC_STATUS_STATUS_Pos));
 
     // Disable the peripheral

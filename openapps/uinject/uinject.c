@@ -162,28 +162,28 @@ void _uinject_task_cb(void) {
     // add 'uinject' string
     memcpy(&payload[len], uinject_payload, sizeof(uinject_payload) - 1);
     len += sizeof(uinject_payload) - 1;
-
+/**/
     uint16_t reading = adcread_get_value();
     payload[len++] = (uint8_t)(reading & 0x00ff);
     payload[len++] = (uint8_t)((reading & 0xff00) >> 8);
-
-    /*
+/**/
+ /*   
     uint8_t temp_buff[BUFFER_SIZE];
     uint8_t num_of_bytes = databus_read(SERIAL, temp_buff, 3);
-    if(num_of_bytes > 1)
+    if(num_of_bytes >= 3)
     {
       //payload[len++] = temp_buff[0];
       payload[len++] = temp_buff[1];
       payload[len++] = temp_buff[2];
-      uart_writeByte('P');
     }
     else
     {
-      uart_writeByte('F');
       return;
     }
-    */
-
+*/    
+    payload[len++] = (uint8_t)(idmanager_getMyID(ADDR_16B)->addr_16b[1]);
+    payload[len++] = (uint8_t)(idmanager_getMyID(ADDR_16B)->addr_16b[0]);
+    // add ticks info
     // add asn
     ieee154e_getAsn(asnArray);
     memcpy(&payload[len], asnArray, sizeof(asnArray));
@@ -193,9 +193,7 @@ void _uinject_task_cb(void) {
     // add rx cells used
     //payload[len++] = msf_getPreviousNumCellsUsed(CELLTYPE_RX);
     // add 16b addr
-    payload[len++] = (uint8_t)(idmanager_getMyID(ADDR_16B)->addr_16b[1]);
-    payload[len++] = (uint8_t)(idmanager_getMyID(ADDR_16B)->addr_16b[0]);
-    // add ticks info
+
     uint32_t ticksOn;
     uint32_t ticksInTotal;
     ieee154e_getTicsInfo(&ticksOn, &ticksInTotal);
