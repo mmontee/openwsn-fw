@@ -130,6 +130,5 @@ void _adcread_task_cb(void) {
             (errorparameter_t)0,
             (errorparameter_t)0
         );
-         
     }
 }

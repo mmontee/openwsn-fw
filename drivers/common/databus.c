@@ -57,3 +57,6 @@ uint8_t databus_write(uint8_t bus_id, uint8_t* buffer, size_t bytes) {
     return (uint8_t)to_write;
 }
 
+uint8_t databus_fillLevel(uint8_t bus_id){
+    bus_list[bus_id]->count;
+}

@@ -573,7 +573,6 @@ owerror_t internal_openserial_print(
         errorparameter_t arg1,
         errorparameter_t arg2
 ) {
-
     outputHdlcOpen();
     outputHdlcWrite(severity);
     outputHdlcWrite(idmanager_getMyID(ADDR_16B)->addr_16b[0]);
@@ -610,12 +609,10 @@ void openserial_handleRxFrame() {
             break;
          case SERFRAME_PC2MOTE_DATA:
             //openbridge_triggerData();
-            if(DAGROOT)
-            {
+            if(DAGROOT){
 
             }
-            else
-            {
+            else{
               databus_write(SERIAL, openserial_vars.inputBuf, 3);
 
               openserial_vars.inputBufFillLevel = 0;
@@ -623,12 +620,10 @@ void openserial_handleRxFrame() {
             
             break;
         case SERFRAME_PC2MOTE_TRIGGERSERIALECHO:
-            if(DAGROOT)
-            {
+            if(DAGROOT){
 
             }
-            else
-            {
+            else{
               openserial_handleEcho(&openserial_vars.inputBuf[1], openserial_vars.inputBufFillLevel - 1);
             }
             break;
